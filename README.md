@@ -5,6 +5,8 @@ Author: Kaike Sa Teles Rocha Alves
     Author: Kaike Sa Teles Rocha Alves (PhD)
     Email: kaikerochaalves@outlook.com or kaike.alves@estudante.ufjf.br
 
+Github repository: https://github.com/kaikerochaalves/handsonmachinelearn.git
+
 ## Instructions
 
 To install the library use the command: 

@@ -7,7 +7,7 @@ packages = ["src/handsonmachinelearn"]
 
 [project]
 name = "handsonmachinelearn"
-version = "0.0.3"
+version = "0.0.4"
 authors = [
     { name = "Kaike Sa Teles Rocha Alves", email = "kaikerochaalves@outlook.com" }
 ]
