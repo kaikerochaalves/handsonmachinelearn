@@ -15,6 +15,10 @@ To install the library use the command:
 
 The library provides data-driven fuzzy models, evolving Fuzzy Systems (eFS), and kernel recursive least squares (KRLS), as follows:
 
+-----------------------------------------------------
+Packages included:
+-----------------------------------------------------
+
 ## NFISiS: new fuzzy inference systems
 
 NFISiS (new fuzzy inference systems) is a collection that contains new machine learning models developed by Kaike Alves during his PhD research. 

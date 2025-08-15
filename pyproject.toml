@@ -7,7 +7,7 @@ packages = ["src/handsonmachinelearn"]
 
 [project]
 name = "handsonmachinelearn"
-version = "0.0.4"
+version = "0.0.5"
 authors = [
     { name = "Kaike Sa Teles Rocha Alves", email = "kaikerochaalves@outlook.com" }
 ]
@@ -19,7 +19,10 @@ dependencies = [
 "scikit-learn",
 "matplotlib",
 "torch",
-"tqdm"
+"tqdm",
+"torch",
+"torchvision",
+"torchaudio"
 ]
 description = "handsonmachinelearn (machine learning models)"
 readme = "README.md"
