@@ -36,4 +36,4 @@ __all__ = ["ePL_KRLS_DISCO", "ePL_plus", "eMG", "ePL", "exTS", "Simpl_eTS", "eTS
            "QALD_KRLS", "Light_KRLS", "NewMamdaniClassifier", "NewMamdaniRegressor", 
            "NTSK", "GEN_NMR", "GEN_NTSK", "R_NTSK", "R_NMR", "ExpandingNet"]
 
-__version__ = "0.0.5"  # Update version as needed
+__version__ = "0.0.6"  # Update version as needed
