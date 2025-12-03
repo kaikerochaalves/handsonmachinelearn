@@ -991,6 +991,77 @@ These last four function that plots graphics accepts extra arguments:
 
 You can learn more about the ePL-KRLS-DISCO and eFSs in the paper: https://doi.org/10.1016/j.asoc.2021.107764.
 
+### ENFS-Uni0 (Classification)
+
+To import the ENFS_Uni0, simply type the command:
+
+    from evolvingfuzzysystems.classification import ENFS_Uni0
+
+Hyperparameters:
+
+    n_features: int, must be a positive integer
+    This defines the dimensionality of the input space. It must match the number of columns in your training data (X).
+
+    n_classes: int, must be a positive integer >= 2
+    This defines the number of distinct classes in the classification problem. It determines the size of the output covariance matrices and weight vectors in the Recursive Least Squares (RLS) layer.
+
+    lambda_ff: float, possible values are in the interval (0, 1], default=0.99
+    This parameter is the forgetting factor for the Recursive Least Squares (RLS) algorithm used in the consequent layer. A value close to 1 indicates a long memory (slow adaptation to concept drift), while a lower value allows the model to adapt faster to recent changes in the data stream.
+
+    q0: float, must be a positive float, default=1.0
+    This parameter initializes the inverse covariance matrix (P) in the RLS algorithm (P = q0 * I). A higher value allows for larger initial updates to the consequent weights (W), implying lower confidence in the initial zero-weights.
+
+    sim_threshold: float, possible values are in the interval [0, 1], default=0.95
+    This serves as the similarity threshold for the evolving rule structure. If a newly created rule has a Gaussian similarity higher than this threshold with an existing rule, the new rule is pruned to prevent redundancy. Lower values result in a sparser, more distinct set of rules.
+
+    max_rules: int or None, must be a positive integer, default=10
+    This defines the maximum capacity of the knowledge base. If the number of rules exceeds this limit, the rule with the lowest support (least used) is pruned. This ensures the model remains compact and interpretable.
+
+    random_state: int or None, default=None
+    This acts as the seed for the random number generator. It controls the random initialization of the uni-nullneuron weights (`w`) and parameters (`g1`, `g2`, `z`) when a new rule is created. Setting this ensures reproducible results.
+
+Examples:
+
+    from enfs_uni0_evolving import ENFSUni0Evolving
+    model = ENFSUni0Evolving(n_features=10, n_classes=3)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+
+Notes:
+
+1. Data Scaling is Critical: This model uses Chebyshev distance and Gaussian membership functions. It is highly recommended to normalize data (e.g., using StandardScaler or MinMaxScaler) so that all features contribute equally to the rule creation process.
+2. Autonomous Structure: Unlike models where you define sigma manually, this model uses an ADPA-inspired mechanism where the radius of rules is calculated dynamically based on the global density of the data stream.
+3. Encoding Requirements: The target labels y passed to fit() must be integer-encoded (0, 1, ... N-1). Raw class labels (e.g., "cat", "dog" or 100, 200) will cause indexing errors.
+
+Example:
+
+    from sklearn.preprocessing import StandardScaler, LabelEncoder
+    from enfs_uni0_evolving import ENFSUni0Evolving
+    # 1. Prepare Data
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+    # 2. Encode Labels (Must be 0, 1, ... N-1)
+    encoder = LabelEncoder()
+    y_train_enc = encoder.fit_transform(y_train)
+    # 3. Initialize Model
+    # We set lambda_ff=0.95 for faster adaptation and limit to 5 rules
+    n_feat = X_train_scaled.shape[1]
+    n_cls = len(encoder.classes_)
+    model = ENFSUni0Evolving(
+        n_features=n_feat, 
+        n_classes=n_cls, 
+        lambda_ff=0.95, 
+        sim_threshold=0.90, 
+        max_rules=5,
+        random_state=42
+    )
+    # 4. Train and Predict
+    model.fit(X_train_scaled, y_train_enc)
+    y_pred_enc = model.predict(X_test_scaled)
+    # 5. Decode predictions back to original labels
+    y_pred = encoder.inverse_transform(y_pred_enc)
+
 ## KRLS: Kernel Recursive Least Squares
 
 Doi to cite the code: http://dx.doi.org/10.5281/zenodo.15800969
