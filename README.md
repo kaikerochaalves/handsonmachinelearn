@@ -995,7 +995,7 @@ You can learn more about the ePL-KRLS-DISCO and eFSs in the paper: https://doi.o
 
 To import the ENFS_Uni0, simply type the command:
 
-    from evolvingfuzzysystems.classification import ENFS_Uni0
+    from handsonmachinelearn.classification import ENFS_Uni0
 
 Hyperparameters:
 
@@ -1022,8 +1022,8 @@ Hyperparameters:
 
 Examples:
 
-    from enfs_uni0_evolving import ENFSUni0Evolving
-    model = ENFSUni0Evolving(n_features=10, n_classes=3)
+    from handsonmachinelearn.classification import ENFS_Uni0
+    model = ENFS_Uni0(n_features=10, n_classes=3)
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
 
@@ -1036,7 +1036,7 @@ Notes:
 Example:
 
     from sklearn.preprocessing import StandardScaler, LabelEncoder
-    from enfs_uni0_evolving import ENFSUni0Evolving
+    from handsonmachinelearn.classification import ENFS_Uni0
     # 1. Prepare Data
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
@@ -1048,7 +1048,7 @@ Example:
     # We set lambda_ff=0.95 for faster adaptation and limit to 5 rules
     n_feat = X_train_scaled.shape[1]
     n_cls = len(encoder.classes_)
-    model = ENFSUni0Evolving(
+    model = ENFS_Uni0(
         n_features=n_feat, 
         n_classes=n_cls, 
         lambda_ff=0.95, 
